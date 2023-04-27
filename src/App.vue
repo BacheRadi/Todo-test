@@ -3,8 +3,8 @@
     <todo-input @addTodo="addTodo"></todo-input>
     <todo-list @setStatus="setStatus">
       <todo-item
-        @updateTodo="updateTodo" 
-        @deleteToDo="deleteToDo" 
+        @updateTodo="updateTodo(item.id, item)" 
+        @deleteToDo="deleteToDo(item.id)" 
         @checkItem="checkItem" 
         v-for="item in items" 
         :key="item.id" 
@@ -21,7 +21,7 @@ import TodoInput from './components/ToDoInput';
 import TodoItem from './components/ToDoItem';
 import TodoList from './components/ToDoList';
 import db from './firebase/init.js';
-import { setDoc, doc } from 'firebase/firestore';
+import { doc, collection, setDoc, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
 
 export default {
   data(){
@@ -31,9 +31,9 @@ export default {
     }
   },
   mounted(){
-    const todosRef = doc(db,'todos',`Todo: ${Id}`);
-    todosRef.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
+    const todosRef = collection(db,'todos');
+    onSnapshot(todosRef, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
         if(change.type == 'added'){
           this.items.push({
             id: change.doc.id,
@@ -70,39 +70,50 @@ export default {
         completed : false,
       }
       const docRef = doc(db,'todos',`Todo: ${todoItem.todo}`);
-      setDoc(docRef, todoItem);
-      console.log('Todo added successfually!');
+      setDoc(docRef, todoItem).then(() => {
+        console.log('Todo added successfully!');
+      }).catch((error) => {
+        console.log('Error adding document: ',error);
+      })
     },
     checkItem(Id){
+      let item = this.items.find(item => item.id === Id);
+      if(item){
+        item.completed = !item.completed;
+        this.updateTodo(Id, {
+          completed : item.completed,
+          todo : item.todo,
+        });
+      }else{
+        console.log(`Item with ID ${Id} not found`);
+      }
+      
       //this.items = this.items.map( item => {
         //if(item.id === Id) {
          // return {...item,completed : !item.completed};
        // }
        // return item;
       //})
-      let item = this.items.find(item => item.id === Id);
-      item.completed = !item.completed;
-      this.updateTodo({
-        completed : item.completed,
-        todo : item.todo,
-      })
+      
     },
     deleteToDo(Id){
       //this.items = this.items.filter(item => item.id !== Id);
-      const todosRef = doc(db,'todos',`${Id}`);
-      todosRef.doc(Id).delete().then(() => {
+      const todosRef = doc(db,'todos',Id);
+      deleteDoc(todosRef).then(() => {
         console.log('Document successfully deleted!');
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log('Error removing document: ',error);
       })
     },
-    updateTodo(todo){
-      const todosRef = doc(db,'todos',`${todo.id}`);
-      todosRef.doc(todo.id).update(todo).then(() => {
+    updateTodo(Id, todo){
+      const todosRef = doc(db,'todos',Id);
+      const updatedFields = {
+        completed: todo.completed,
+        todo: todo.todo,
+      };
+      updateDoc(todosRef, updatedFields).then(() => {
         console.log('Document successfully updated!');
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log('Error updating document: ',error);
       })
     },
