@@ -1,7 +1,5 @@
 <template>
-    <div class="todo-input">
-        <input v-model="todo" placeholder="Write something todo" @keydown.enter="addTodo">
-    </div>
+    <input class="todo-input" v-model="todo" placeholder="Write something todo" @keydown.enter="addTodo">
 </template>
   
 <script>
@@ -28,15 +26,19 @@
 <style>
   .todo-input{
     width: 100%;
-    padding: 0 10px;
+    margin-bottom: 2rem;
+    border: none;
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    font-size: 20px;
+    background-color: #f4f4f425;
+    color: white;
   }
-  input{
-    width: 100%;
-    padding: 5px 10px;
-    font-size: 16px;
-    border: 1px solid black;
-    border-radius: 3px;
+  
+  .todo-input::placeholder {
+    color: #ffffff70;
   }
+
   input:focus{
     outline: none;
   }

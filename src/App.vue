@@ -87,17 +87,8 @@ export default {
       }else{
         console.log(`Item with ID ${Id} not found`);
       }
-      
-      //this.items = this.items.map( item => {
-        //if(item.id === Id) {
-         // return {...item,completed : !item.completed};
-       // }
-       // return item;
-      //})
-      
     },
     deleteToDo(Id){
-      //this.items = this.items.filter(item => item.id !== Id);
       const todosRef = doc(db,'todos',Id);
       deleteDoc(todosRef).then(() => {
         console.log('Document successfully deleted!');
@@ -130,15 +121,12 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Poppins:wght@300;700&display=swap');
-
 .app {
-  font-family: "Poppins", sans-serif;
-  margin: 50px auto;
-  width: 500px;
-  padding: 20px;
-  border: 1px solid #EEE;
-  border-radius: 10px;
+  color: #ffffffb0;
+  background-color: #ffffff21;
+  width: var(--app-width);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 15px 40px -20px black;
 }
-
 </style>

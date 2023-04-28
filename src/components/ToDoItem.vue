@@ -4,7 +4,7 @@
             <div class="edit" @click="editMode = !editMode"><i class="fa fa-edit"></i></div>
             <div class="delete" @click="deleteToDo"><i class="fa fa-trash"></i></div>
         </div>
-        <div v-if="editMode"><input @keydown.enter="updateTodo" v-model="todo.todo"/></div>
+        <div v-if="editMode"><input class="todo-item-input" @keydown.enter="updateTodo" v-model="todo.todo"/></div>
         <div v-else :class="{throw:item.completed}">{{ item.todo }}</div>
         <div><input type="checkbox" :checked="item.completed" @click="check"/></div>
     </div>
@@ -41,16 +41,30 @@
   
 <style>
 .todo-item {
-    padding: 10px 20px;
+    background-color: #f4f4f425;
+    padding: 1rem 1.5rem;
     margin: 5px 0;
-    font-size: 16px;
+    border-radius: var(--radius);
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: black;
     width: 100%;
-    border: 1px solid #EEE;
-    border-radius: 10px;
+}
+.todo-item-input {
+    width: 100%;
+    border: none;
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    font-size: 15px;
+    background-color: #f4f4f425;
+    color: black;
+}
+.todo-item-input::placeholder {
+    color: #ffffff70;
+}
+input:focus{
+    outline: none;
 }
 .throw {
     text-decoration: line-through;

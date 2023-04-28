@@ -10,9 +10,6 @@
 </template>
   
 <script>
-//import db from './firebase/init.js';
-//import { setDoc, doc, deleteDoc } from 'firebase/firestore';
-
   export default {
     data(){
         return{
@@ -31,6 +28,7 @@
 </script>
   
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Poppins:wght@300;700&display=swap');
   .todo-list {
     display: flex;
     flex-direction: column;
@@ -43,11 +41,13 @@
     margin: 5px 0 0 0;
   }
   button {
+    font-family: 'Poppins', sans-serif;
     margin: 0 5px;
-    background-color: #EEE;
+    background-color: #f4f4f425;
+    color: black;
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
   }
   button:focus {
     outline: none;
