@@ -48,7 +48,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: black;
+    color: white;
     width: 100%;
 }
 .todo-item-input {
@@ -58,7 +58,7 @@
     padding: 1rem 1.5rem;
     font-size: 15px;
     background-color: #f4f4f425;
-    color: black;
+    color: white;
 }
 .todo-item-input::placeholder {
     color: #ffffff70;
