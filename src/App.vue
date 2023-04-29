@@ -123,7 +123,7 @@ export default {
 <style>
 .app {
   color: #ffffffb0;
-  background-color: #ffffff21;
+  background-color: #ffffff42;
   width: var(--app-width);
   border-radius: var(--radius);
   padding: 2rem;
