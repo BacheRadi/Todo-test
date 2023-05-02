@@ -28,7 +28,7 @@
         },
         updateTodo() {
             if (this.todo.todo !== '') {
-                this.$emit('updateTodo',this.todo);
+                this.$emit('updateTodo',this.item.id ,this.todo);
                 this.editMode = false;
             }
         }
@@ -68,6 +68,7 @@ input:focus{
 }
 .throw {
     text-decoration: line-through;
+    color: black;
 }
 .controls {
     display: flex;
