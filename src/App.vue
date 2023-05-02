@@ -11,8 +11,7 @@
         :item="item"
         :status="status"
       />
-    </todo-list>
-      
+    </todo-list> 
   </div>
 </template>
 
@@ -69,7 +68,7 @@ export default {
         todo,
         completed : false,
       }
-      const docRef = doc(db,'todos',`Todo: ${todoItem.todo}`);
+      const docRef = doc(db,'todos',todoItem.todo);
       setDoc(docRef, todoItem).then(() => {
         console.log('Todo added successfully!');
       }).catch((error) => {
